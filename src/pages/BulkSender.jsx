@@ -22,7 +22,7 @@ const BulkSender = ({
   const progress = total > 0 ? (currentIndex / total) * 100 : 0;
 
   const fetchQueue = () => {
-    fetch('http://localhost:3001/api/jobs')
+    fetch('https://wa-blast-pro.onrender.com/api/jobs')
       .then(res => res.json())
       .then(data => setScheduledQueue(data))
       .catch(() => setScheduledQueue([]));
@@ -32,10 +32,10 @@ const BulkSender = ({
   useEffect(() => {
     setHistory(StorageService.getHistory());
 
-    const socket = io('http://localhost:3001');
+    const socket = io('https://wa-blast-pro.onrender.com');
     socketRef.current = socket;
 
-    fetch('http://localhost:3001/status')
+    fetch('https://wa-blast-pro.onrender.com/status')
       .then(res => res.json())
       .then(data => setConnectionStatus(data.status))
       .catch(() => setConnectionStatus('disconnected'));
@@ -97,7 +97,7 @@ const BulkSender = ({
   const cancelScheduledJob = async (jobId) => {
     if (!window.confirm("Cancel this scheduled message?")) return;
     try {
-      await axios.delete(`http://localhost:3001/api/jobs/${jobId}`);
+      await axios.delete(`https://wa-blast-pro.onrender.com/api/jobs/${jobId}`);
       fetchQueue();
     } catch (err) {
       alert("Could not cancel — the message may have already been sent.");
@@ -132,7 +132,7 @@ const BulkSender = ({
         setSessionLogs(prev => [newLog, ...prev]);
 
         try {
-          await axios.post('http://localhost:3001/api/send', {
+          await axios.post('https://wa-blast-pro.onrender.com/api/send', {
             phone, message,
             media: campaign.media,
             scheduledTime: campaign.scheduledTime

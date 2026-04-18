@@ -75,6 +75,15 @@ client.on('disconnected', async (reason) => {
 });
 
 // API Endpoints
+app.get('/', (req, res) => {
+    res.json({ 
+        status: 'online', 
+        message: 'WhatsApp Automation Server is Live',
+        version: '1.0.0',
+        documentation: 'Visit /status for connection info'
+    });
+});
+
 app.get('/status', (req, res) => {
     res.json({ status: connectionStatus });
 });

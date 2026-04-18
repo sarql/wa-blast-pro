@@ -9,7 +9,7 @@ const Dashboard = ({ stats }) => {
   const [serverTime, setServerTime] = useState(new Date());
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3001');
+    const newSocket = io('https://wa-blast-pro.onrender.com');
     setSocket(newSocket);
 
     newSocket.on('qr', (url) => {
@@ -25,7 +25,7 @@ const Dashboard = ({ stats }) => {
     });
 
     // Check initial status and time
-    fetch('http://localhost:3001/status')
+    fetch('https://wa-blast-pro.onrender.com/status')
       .then(res => res.json())
       .then(data => setStatus(data.status))
       .catch(() => setStatus('disconnected'));
@@ -111,7 +111,7 @@ const Dashboard = ({ stats }) => {
                 onClick={async () => {
                   if (window.confirm("Are you sure you want to disconnect? You will need to scan the QR code again.")) {
                     try {
-                      const res = await fetch('http://localhost:3001/api/logout', { method: 'POST' });
+                      const res = await fetch('https://wa-blast-pro.onrender.com/api/logout', { method: 'POST' });
                       const data = await res.json();
                       if (data.success) {
                         setStatus('disconnected');
