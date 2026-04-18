@@ -19,14 +19,19 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // WhatsApp Client Initialization
 const client = new Client({
     authStrategy: new LocalAuth({ dataPath: './sessions' }),
     puppeteer: {
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions']
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-extensions'
+        ]
     }
 });
 
@@ -207,5 +212,5 @@ app.post('/api/send', async (req, res) => {
 client.initialize().catch(err => console.error('Initialization error:', err));
 
 server.listen(PORT, () => {
-    console.log(`Automation server running on http://localhost:${PORT}`);
+    console.log(`Automation server running on port ${PORT}`);
 });
