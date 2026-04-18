@@ -7,6 +7,7 @@ const cors = require('cors');
 const schedule = require('node-schedule');
 const fs = require('fs');
 const path = require('path');
+const puppeteer = require('puppeteer');
 
 const app = express();
 const server = http.createServer(app);
@@ -26,6 +27,7 @@ const client = new Client({
     authStrategy: new LocalAuth({ dataPath: './sessions' }),
     puppeteer: {
         headless: true,
+        executablePath: puppeteer.executablePath(),
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
