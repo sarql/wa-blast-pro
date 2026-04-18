@@ -20,6 +20,7 @@
     "lucide-react": "^1.8.0",
     "node-schedule": "^2.1.1",
     "papaparse": "^5.5.3",
+    "puppeteer": "^24.41.0",
     "qrcode": "^1.5.4",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
